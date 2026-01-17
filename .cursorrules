@@ -1,0 +1,95 @@
+﻿#  AI Agent Router
+
+## 0. 📁 Files & Paths (项目地图)
+
+### 搜索范围
+- **主代码目录**: `Assets/_Project/Scripts/`
+- **配置文件**: `Assets/_Project/Configs/`, `Assets/_Project/Data/`
+- **场景文件**: `Assets/_Project/Scenes/`
+
+### 忽略目录 (严禁搜索)
+```
+Library/
+Temp/
+Logs/
+Builds/
+obj/
+Assets/Plugins/
+*.meta
+```
+
+### 核心模块路径
+
+| 模块 | 路径 | 说明 |
+|------|------|------|
+| **ServiceLocator** | `Core/ServiceLocator.cs` | 服务定位器（禁止单例） |
+| **EventManager** | `Core/EventSystem/EventManager.cs` | 全局事件系统 |
+| **SpawnManager** | `Core/Spawning/SpawnManager.cs` | 对象生成（禁止 Instantiate） |
+| **ObjectPoolManager** | `Core/Pooling/ObjectPoolManager.cs` | 对象池管理 |
+| **InputService** | `Core/Input/InputService.cs` | 输入系统封装 |
+| **Bootstrap** | `Core/Bootstrap/GameBootstrap.cs` | 游戏启动引导 |
+
+### 系统模块路径
+
+| 系统 | 路径 | 说明 |
+|------|------|------|
+| **Player** | `Systems/Player/` | 玩家控制器、状态机、血量 |
+| **Enemy** | `Systems/Enemy/` | 敌人 AI、攻击、血量组件 |
+| **Weapon** | `Systems/Weapon/` | 武器管理、效果、状态 |
+| **Combat** | `Systems/Combat/` | 战斗系统、伤害信息 |
+| **Game** | `Systems/Game/` | 游戏阶段、流程控制 |
+| **UI** | `Systems/UI/` | UI 系统（Core/Panels/Widgets） |
+
+### 接口定义
+- `Core/Interfaces/` - IDamageable, IGamePhaseService, IUIService, IWeaponComponent
+- `Core/IGameService.cs` - 服务基础接口
+
+---
+
+## 1. 🌍 全局上下文 (Global Context)
+
+- **Project:** 你的项目名称(Your Project Name)
+- **Type:** 你的项目类型(Your Project Type)
+- **Tech Stack:** 你的项目技术栈(Your Project Tech Stack)
+- **Language:** 你的项目语言(Your Project Language)
+- **Time:** 你的项目时间(Your Project Time)
+- **Core Philosophy:** Cursor-Unity-Rules-Workflow v1.0 - Repository is Timeline.
+
+---
+
+## 2. 🤖 角色动态路由 (Dynamic Role Routing)
+
+根据用户的 Prompt 意图，必须激活对应的 `.mdc` 规则：
+
+* **意图：新需求 / 想法 / 复盘** -> 激活 `@historian.mdc`
+
+* 意图：项目管理 / 进度汇报 / 需求砍单 -> 激活 @pm.mdc
+
+* **意图：学习 / 教程 / 概念理解 / Java 对比** -> 激活 `@mentor.mdc`
+
+* **意图：工具开发 / 数据结构定义 / 管线搭建** -> 激活 `@td_tech_designer.mdc`
+
+* **意图：系统架构 / 方案审核 / 蓝图规划** -> 激活 `@architect.mdc`
+
+* **意图：写代码 / 修改逻辑 / 报错修复** -> 激活 `@coder.mdc`
+
+* **意图：测试 / 审查 / 性能分析** -> 激活 `@qa.mdc`
+
+### 角色快速路径参考
+
+- **@architect**: 查阅 `Core/` 架构、`Core/Interfaces/` 接口定义
+- **@coder**: 在 `Systems/` 下对应模块编写代码
+- **@mentor**: 用 `Core/EventSystem/` 和 `Core/Spawning/` 举例教学
+- **@qa**: 重点审查 `Systems/` 下的组件是否遵循 P0 约束
+
+---
+
+## 3. 🚨 绝对红线 (P0 Constraints)
+
+1.  **架构:** 严禁单例，必须使用 `ServiceLocator`（见 `Core/ServiceLocator.cs`）
+
+2.  **生成:** 严禁 `Instantiate`，必须使用 `SpawnManager`（见 `Core/Spawning/`）
+
+3.  **数据:** 严禁 `int/enum` 索引，必须使用 String ID (snake_case)
+
+4.  **输入:** 严禁 `Input.GetKey`，必须使用 InputSystem（见 `Core/Input/`）
