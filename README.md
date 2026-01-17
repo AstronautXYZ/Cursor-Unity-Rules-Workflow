@@ -2,7 +2,7 @@
 
 ### 🎮 基于演化节点的 Unity AI 自动化开发流配置
 
-> **真正的Vibe Coding**
+> **真正落地的 Vibe Coding：不仅仅是 Prompt，而是工业化的高效虚拟团队。** 
 
 ## 💡 灵感来源 (Credits & Inspiration)
 
